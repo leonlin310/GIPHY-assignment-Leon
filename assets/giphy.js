@@ -1,61 +1,105 @@
 // giphy API key LchkE5VhkPbCWLyn7rQOhBUigHCYklO7
-
+// var buttonData;
+// var queryURL;
 
 //DONE: Create an array of strings, save it to a variable called topics
-var topics = ["LeBron James", "Leehom Wang", "Steph Curry", "NBA Highlights", "Derrick Rose", "Red Hot Chili Peppers", "Jay Chou"];
-
-//DONE: use a for loop and reate buttons in your HTML
-
-for (i = 0; i < topics.length; i++) {
-    var buttonDiv = $("<button>");
-    buttonDiv.addClass("gif-btn")
-    buttonDiv.attr("data-name", topics[i]);
-    buttonDiv.text(topics[i]);
-    $(".buttons-div").append(buttonDiv);
-}
+var topics = ["Lebron James", "Leehom Wang", "Steph Curry", "NBA Highlights", "Derrick Rose", "Red Hot Chili Peppers", "Jay Chou"];
 
 
- $(".gif-btn").on("click", function(){
-
+function displayEverything() {
 
     var buttonData = $(this).attr("data-name");
-     // from the GIPHy site
-    // "http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=YOUR_API_KEY&limit=5"
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + buttonData + "&api_key=LchkE5VhkPbCWLyn7rQOhBUigHCYklO7&limit=10";
 
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function(response) {
-    console.log(response);
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        // console.log(response);
 
         //DONE: grab URL of gif
         //DONE: grab title of gif
         //DONE: grab Rating of Gif
 
-        //TODO: create a for loop for response.data.length
-        for (i = 0; i<response.data.length; i++){
-            console.log("URL of this GIF on click is: ", response.data[i].images.original.url);
-            console.log("Title of this GIF on click is: ", response.data[i].title);
-            console.log("Rating of this GIF on click is: ", response.data[i].rating);
+        //DONE: create a for loop for response.data.length
+        for (i = 0; i < response.data.length; i++) {
 
-            //TODO: set a variable gifDiv and have is create a div tag, then add class "gif" to it
+            //DONE: set a variable gifDiv and have is create a div tag, then add class "gif" to it
             var gifDiv = $("<div>").addClass("gif")
-            //Todo: create an image variable then have it create an img tag and give it a src attribute of the response data for url
+            //DONE: create an image variable then have it create an img tag and give it a src attribute of the response data for url
             var imageTag = $("<img>").attr("src", response.data[i].images.original.url);
-            //TODO: append the gifDiv and image variable to the #gifs-here ID
-            $("#gifs-here").append(gifDiv, imageTag);
-            //TODO: set a variable for Title
+            //DONE: append the gifDiv and image variable to the #gifs-here ID
+            $("#gifs-here").prepend(gifDiv, imageTag);
+            //DONE: set a variable for Title
             var titleGif = $("<h2>").text("Title: " + response.data[i].title);
-            //TODO: set a variable for the rating
+            //DONE: set a variable for the rating
             var ratingGif = $("<h3>").text("Rating: " + response.data[i].rating);
-            $("#gifs-here").append(titleGif);
-            $("#gifs-here").append(ratingGif);
+            $("#gifs-here").prepend(titleGif);
+            $("#gifs-here").prepend(ratingGif);
         }
+
+    });
+};
+
+//Function for displaying the buttons
+function showButtons() {
+    //Empty the buttons div before adding a new button
+    $(".buttons-div").empty();
+    //Looping thru the array
+    for (i = 0; i < topics.length; i++) {
+        var buttonDiv = $("<button>");
+        buttonDiv.addClass("gif-btn")
+        buttonDiv.attr("data-name", topics[i]);
+        buttonDiv.text(topics[i]);
+        $(".buttons-div").append(buttonDiv);
+        console.log("the current added topics are: ", topics);
+    }
+
+
+}
+
+function displayButtons() {
+    for (i = 0; i < topics.length; i++) {
+        var buttonDiv = $("<button>");
+        buttonDiv.addClass("gif-btn")
+        buttonDiv.attr("data-name", topics[i]);
+        buttonDiv.text(topics[i]);
+        $(".buttons-div").append(buttonDiv);
+    }
+};
+
+displayButtons();
+
+
+
+
+
+
+//This function will allow us to add to the array of movies when clicked
+$("#add-gifs").on("click", function (event) {
+    event.preventDefault();
+    var addMovie = $("#button-input").val();
+    topics.push(addMovie);
+    //then call the showButtons function
+    console.log(topics);
+    showButtons();
+
 
 });
 
- });
+
+//On click for each button will set the Global Variables to work.
+// $(".gif-btn").on("click", function(){
+
+//     });
+
+//On Click events will run the displayEverything function   
+$(document).on("click", ".gif-btn", displayEverything);
+
+
+    //  displayEverything();
+
+//  });
 
 
 
