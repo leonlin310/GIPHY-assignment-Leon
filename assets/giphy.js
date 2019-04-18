@@ -15,7 +15,7 @@ function displayEverything() {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        // console.log(response);
+        console.log(response);
 
         //DONE: grab URL of gif
         //DONE: grab title of gif
