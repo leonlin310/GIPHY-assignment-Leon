@@ -24,10 +24,13 @@ function displayEverything() {
         //DONE: create a for loop for response.data.length
         for (i = 0; i < response.data.length; i++) {
 
+            console.log(response.data[i].images.original_still.url)
             //DONE: set a variable gifDiv and have is create a div tag, then add class "gif" to it
             var gifDiv = $("<div>").addClass("gif")
             //DONE: create an image variable then have it create an img tag and give it a src attribute of the response data for url
-            var imageTag = $("<img>").attr("src", response.data[i].images.original.url);
+            // var imageTag = $("<img>").attr("src", response.data[i].images.original.url);
+            //TODO: Create an image variable, create an image tag, give it a source attribute for still. then give it .attr of data-still with the paused gif url. then give it another attribute of data-animate with the working gif.Give it an attribute "data-state" and make it equal still.  Give it a class "gifclick" then attach event listener 
+            var imageTag = $("<img>").attr("src", response.data[i].images.original_still.url).attr("data-still",response.data[i].images.original_still.url).attr("data-animate", response.data[i].images.original.url).attr("data-state", "still").addClass("gifclick")
             //DONE: append the gifDiv and image variable to the #gifs-here ID
             $("#gifs-here").prepend(gifDiv, imageTag);
             //DONE: set a variable for Title
@@ -37,6 +40,29 @@ function displayEverything() {
             $("#gifs-here").prepend(titleGif);
             $("#gifs-here").prepend(ratingGif);
         }
+
+
+        //TODO: add event listener to class gifclick to toggle between data-states. 
+        $(".gifclick").on("click", function(event){
+            event.preventDefault();
+            console.log("this is working")
+            var state = $(this).attr("data-state")
+            console.log(state);
+
+            //TODO: if data state === still, have the attribute set to src animate
+            if (state === "still") {
+                $(this).attr("src", $(this).attr("data-animate"));
+                $(this).attr("data-state", "animate");
+            }
+
+            else {
+                $(this).attr("src", $(this).attr("data-still"));
+                $(this).attr("data-state", "still");
+
+            }
+
+        
+        });
 
     });
 };
@@ -54,8 +80,6 @@ function showButtons() {
         $(".buttons-div").append(buttonDiv);
         console.log("the current added topics are: ", topics);
     }
-
-
 }
 
 function displayButtons() {
@@ -72,9 +96,6 @@ displayButtons();
 
 
 
-
-
-
 //This function will allow us to add to the array of movies when clicked
 $("#add-gifs").on("click", function (event) {
     event.preventDefault();
@@ -84,23 +105,12 @@ $("#add-gifs").on("click", function (event) {
     console.log(topics);
     showButtons();
 
-
 });
 
 
-//On click for each button will set the Global Variables to work.
-// $(".gif-btn").on("click", function(){
-
-//     });
 
 //On Click events will run the displayEverything function   
 $(document).on("click", ".gif-btn", displayEverything);
-
-
-    //  displayEverything();
-
-//  });
-
 
 
 
