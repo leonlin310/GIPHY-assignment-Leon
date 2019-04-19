@@ -23,8 +23,8 @@ function displayEverything() {
 
         //DONE: create a for loop for response.data.length
         for (i = 0; i < response.data.length; i++) {
-
-            console.log(response.data[i].images.original_still.url)
+            
+            // console.log(response.data[i].images.original_still.url)
             //DONE: set a variable gifDiv and have is create a div tag, then add class "gif" to it
             var gifDiv = $("<div>").addClass("gif")
             //DONE: create an image variable then have it create an img tag and give it a src attribute of the response data for url
@@ -32,40 +32,21 @@ function displayEverything() {
             //TODO: Create an image variable, create an image tag, give it a source attribute for still. then give it .attr of data-still with the paused gif url. then give it another attribute of data-animate with the working gif.Give it an attribute "data-state" and make it equal still.  Give it a class "gifclick" then attach event listener 
             var imageTag = $("<img>").attr("src", response.data[i].images.original_still.url).attr("data-still",response.data[i].images.original_still.url).attr("data-animate", response.data[i].images.original.url).attr("data-state", "still").addClass("gifclick")
             //DONE: append the gifDiv and image variable to the #gifs-here ID
-            $("#gifs-here").prepend(gifDiv, imageTag);
+            $("#gifs-here").prepend(gifDiv, imageTag, titleGif, ratingGif);
             //DONE: set a variable for Title
             var titleGif = $("<h2>").text("Title: " + response.data[i].title);
             //DONE: set a variable for the rating
             var ratingGif = $("<h3>").text("Rating: " + response.data[i].rating);
-            $("#gifs-here").prepend(titleGif);
-            $("#gifs-here").prepend(ratingGif);
+       
+           
         }
 
-
-        //TODO: add event listener to class gifclick to toggle between data-states. 
-        $(".gifclick").on("click", function(event){
-            event.preventDefault();
-            console.log("this is working")
-            var state = $(this).attr("data-state")
-            console.log(state);
-
-            //TODO: if data state === still, have the attribute set to src animate
-            if (state === "still") {
-                $(this).attr("src", $(this).attr("data-animate"));
-                $(this).attr("data-state", "animate");
-            }
-
-            else {
-                $(this).attr("src", $(this).attr("data-still"));
-                $(this).attr("data-state", "still");
-
-            }
-
         
-        });
 
     });
 };
+
+        //TODO: add event listener to class gifclick to toggle between data-states. 
 
 //Function for displaying the buttons
 function showButtons() {
@@ -99,8 +80,8 @@ displayButtons();
 //This function will allow us to add to the array of movies when clicked
 $("#add-gifs").on("click", function (event) {
     event.preventDefault();
-    var addMovie = $("#button-input").val();
-    topics.push(addMovie);
+    var addGif = $("#button-input").val();
+    topics.push(addGif);
     //then call the showButtons function
     console.log(topics);
     showButtons();
@@ -111,16 +92,28 @@ $("#add-gifs").on("click", function (event) {
 
 //On Click events will run the displayEverything function   
 $(document).on("click", ".gif-btn", displayEverything);
+$(document).on("click", ".gifclick", gifClickerz);
 
 
 
+  function gifClickerz(){
+    $(".gifclick").on("click", function(event){
+        event.preventDefault();
+     
+        var state = $(this).attr("data-state")
+        console.log(state);
 
+        if (state === "still") {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+        }
 
-
-
-
-
-
+        else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+        }
+    });
+};
 
 
 
