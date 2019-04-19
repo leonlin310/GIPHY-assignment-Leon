@@ -2,6 +2,8 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    height: 200px;
+    width: auto;
     
   }
   
@@ -12,3 +14,20 @@ img {
   #instructions {
     color: blue;
   }
+
+  .buttons-div {
+    display: flex;
+    margin: 10px;
+    justify-content: flex-start;
+    flex-wrap: wrap
+
+  }
+
+  .gif-btn {
+    padding: 10px;
+    border: 1px solid lightgrey;
+    margin: 5px;
+    font-size: 15px;
+    background-color: lightsteelblue;
+  }
+

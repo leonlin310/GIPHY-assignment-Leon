@@ -3,7 +3,7 @@
 // var queryURL;
 
 //DONE: Create an array of strings, save it to a variable called topics
-var topics = ["Lebron James", "Leehom Wang", "Steph Curry", "NBA Highlights", "Derrick Rose", "Red Hot Chili Peppers", "Jay Chou"];
+var topics = ["Lebron James", "Leehom Wang", "Steph Curry", "NBA Highlights", "Derrick Rose", "Red Hot Chili Peppers", "Jay Chou", "Donald Trump", "Andrew Yang", "Stock Prices", "Coding Excercises", "Coding Bootcamps", "Red Hats ruined by Donald Trump"];
 
 
 function displayEverything() {
@@ -30,7 +30,7 @@ function displayEverything() {
             //DONE: create an image variable then have it create an img tag and give it a src attribute of the response data for url
             // var imageTag = $("<img>").attr("src", response.data[i].images.original.url);
             //TODO: Create an image variable, create an image tag, give it a source attribute for still. then give it .attr of data-still with the paused gif url. then give it another attribute of data-animate with the working gif.Give it an attribute "data-state" and make it equal still.  Give it a class "gifclick" then attach event listener 
-            var imageTag = $("<img>").attr("src", response.data[i].images.original_still.url).attr("data-still",response.data[i].images.original_still.url).attr("data-animate", response.data[i].images.original.url).attr("data-state", "still").addClass("gifclick")
+            var imageTag = $("<img>").attr("src", response.data[i].images.original_still.url).attr("data-still",response.data[i].images.original_still.url).attr("data-animate", response.data[i].images.original.url).attr("data-state", "still").addClass("gifclick").attr("alt", "@ DENNIS & MELISSA. BLAME GIPHY FOR THE IMAGE NOT SHOWING UP!")
             //DONE: append the gifDiv and image variable to the #gifs-here ID
             $("#gifs-here").prepend(gifDiv, imageTag, titleGif, ratingGif);
             //DONE: set a variable for Title
